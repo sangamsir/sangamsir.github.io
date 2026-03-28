@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindriX — मन की विद्या | Learn Psychology in Hindi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Sans+Devanagari:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g: #E8C547; --gd: #C9A227; --gl: #FFF0A0; --gdim: #7a5e10;
+  --bg: #050403; --bg2: #0c0a06; --bg3: #141008;
+  --card: rgba(20,16,8,.8); --bdr: rgba(232,197,71,.15);
+  --fg: #EEE8D5; --fgd: rgba(238,232,213,.6); --fgdd: rgba(238,232,213,.35);
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Cormorant Garamond',serif;
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 24px;
+  background:rgba(5,4,3,.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(232,197,71,.08);
+}
+.nav-logo{
+  font-family:'Cinzel Decorative',serif;
+  font-size:15px; letter-spacing:3px;
+  background:linear-gradient(135deg,var(--gdim),var(--g),var(--gl));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.nav-cta{
+  background:linear-gradient(135deg,var(--gdim),var(--g));
+  color:#000; border:none; border-radius:8px;
+  padding:9px 18px;
+  font-family:'Cinzel Decorative',serif; font-size:8px; letter-spacing:2px;
+  cursor:pointer; font-weight:700;
+  text-decoration:none; display:inline-block;
+  transition:.2s;
+}
+.nav-cta:hover{ transform:translateY(-1px); box-shadow:0 4px 16px rgba(232,197,71,.3); }
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:100px 24px 60px;
+  position:relative; text-align:center;
+  overflow:hidden;
+}
+.hero-glow{
+  position:absolute; top:20%; left:50%; transform:translateX(-50%);
+  width:600px; height:600px;
+  background:radial-gradient(circle, rgba(232,197,71,.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-rings{
+  position:absolute; inset:0; pointer-events:none;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-ring{
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(232,197,71,.05);
+  animation:ringExpand 4s ease-out infinite;
+}
+.hero-ring:nth-child(1){ width:400px; height:400px; }
+.hero-ring:nth-child(2){ width:600px; height:600px; animation-delay:.8s; }
+.hero-ring:nth-child(3){ width:800px; height:800px; animation-delay:1.6s; }
+@keyframes ringExpand{
+  0%{ opacity:.6; transform:scale(.9); }
+  100%{ opacity:0; transform:scale(1.1); }
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(232,197,71,.08);
+  border:1px solid rgba(232,197,71,.25);
+  border-radius:20px; padding:6px 16px;
+  font-size:11px; color:var(--g); letter-spacing:2px;
+  font-family:'Cinzel Decorative',serif;
+  margin-bottom:24px;
+  animation:fadeUp .8s ease both;
+}
+.hero-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(28px,7vw,52px);
+  letter-spacing:4px; line-height:1.2;
+  background:linear-gradient(135deg,var(--gdim) 0%,var(--g) 40%,var(--gl) 60%,var(--g) 80%,var(--gdim) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+  animation:fadeUp .8s .1s ease both;
+}
+.hero-sub{
+  font-size:clamp(14px,3vw,18px);
+  color:var(--fgd); letter-spacing:1px;
+  margin-bottom:20px;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero-desc{
+  font-size:clamp(13px,2.5vw,16px);
+  color:var(--fgdd); line-height:1.9; max-width:520px;
+  margin:0 auto 36px;
+  animation:fadeUp .8s .3s ease both;
+}
+.hero-desc b{ color:var(--g); font-weight:600; }
+.hero-btns{
+  display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+  animation:fadeUp .8s .4s ease both;
+  margin-bottom:48px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,#5a3e0a,var(--g),var(--gl));
+  color:#000; border:none; border-radius:12px;
+  padding:15px 28px;
+  font-family:'Cinzel Decorative',serif; font-size:10px; font-weight:700; letter-spacing:2px;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  box-shadow:0 8px 32px rgba(232,197,71,.25);
+  transition:.25s;
+}
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 12px 40px rgba(232,197,71,.35); }
+.btn-secondary{
+  background:transparent;
+  color:var(--g); border:1px solid rgba(232,197,71,.4);
+  border-radius:12px; padding:15px 28px;
+  font-family:'Cinzel Decorative',serif; font-size:10px; letter-spacing:2px;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  transition:.25s;
+}
+.btn-secondary:hover{ background:rgba(232,197,71,.06); border-color:rgba(232,197,71,.6); }
+
+.hero-stats{
+  display:flex; gap:32px; justify-content:center; flex-wrap:wrap;
+  animation:fadeUp .8s .5s ease both;
+}
+.stat{ text-align:center; }
+.stat-num{
+  font-family:'Cinzel Decorative',serif;
+  font-size:24px; color:var(--g); display:block;
+}
+.stat-label{
+  font-size:11px; color:var(--fgdd); letter-spacing:1px;
+}
+
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(20px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* ── SECTION COMMON ── */
+section{ padding:80px 24px; position:relative; z-index:1; }
+.sec-label{
+  font-family:'Cinzel Decorative',serif; font-size:9px;
+  color:var(--g); letter-spacing:4px;
+  text-align:center; margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(20px,4vw,30px); letter-spacing:2px;
+  text-align:center; margin-bottom:8px;
+  background:linear-gradient(135deg,var(--gd),var(--g),var(--gl));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.sec-sub{
+  font-size:14px; color:var(--fgdd); text-align:center;
+  max-width:480px; margin:0 auto 48px; line-height:1.8;
+}
+.inner{ max-width:900px; margin:0 auto; }
+
+/* ── DIVIDER ── */
+.divider{
+  width:80px; height:1px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);
+  margin:0 auto 48px;
+}
+
+/* ── FEATURES ── */
+.features-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;
+}
+.feat-card{
+  background:rgba(20,16,8,.6);
+  border:1px solid rgba(232,197,71,.1);
+  border-radius:20px; padding:28px 24px;
+  transition:.3s;
+  position:relative; overflow:hidden;
+}
+.feat-card::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,197,71,.3),transparent);
+}
+.feat-card:hover{
+  border-color:rgba(232,197,71,.25);
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.4);
+}
+.feat-icon{ font-size:32px; margin-bottom:16px; display:block; }
+.feat-title{
+  font-family:'Cinzel Decorative',serif; font-size:11px;
+  color:var(--g); letter-spacing:2px; margin-bottom:10px;
+}
+.feat-desc{ font-size:13px; color:var(--fgd); line-height:1.8; }
+
+/* ── HOW IT WORKS ── */
+.steps{ display:flex; flex-direction:column; gap:0; max-width:600px; margin:0 auto; }
+.step{
+  display:flex; gap:24px; align-items:flex-start;
+  padding:28px 0; position:relative;
+}
+.step:not(:last-child)::after{
+  content:''; position:absolute;
+  left:19px; top:68px; bottom:-28px; width:1px;
+  background:linear-gradient(180deg,rgba(232,197,71,.3),transparent);
+}
+.step-num{
+  width:40px; height:40px; border-radius:50%; flex-shrink:0;
+  background:linear-gradient(135deg,var(--gdim),var(--g));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel Decorative',serif; font-size:14px; color:#000; font-weight:700;
+}
+.step-body{ flex:1; }
+.step-title{
+  font-family:'Cinzel Decorative',serif; font-size:12px;
+  color:var(--g); letter-spacing:1px; margin-bottom:6px;
+}
+.step-desc{ font-size:13px; color:var(--fgd); line-height:1.8; }
+
+/* ── CURRICULUM PREVIEW ── */
+.curr-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+}
+.curr-card{
+  background:rgba(14,11,6,.7);
+  border:1px solid rgba(232,197,71,.1);
+  border-radius:16px; padding:20px 18px;
+  display:flex; gap:14px; align-items:flex-start;
+  transition:.2s;
+}
+.curr-card:hover{ border-color:rgba(232,197,71,.2); background:rgba(20,16,8,.9); }
+.curr-emoji{ font-size:24px; flex-shrink:0; }
+.curr-info{ flex:1; }
+.curr-day{ font-size:9px; color:var(--gdim); letter-spacing:2px; font-family:'Cinzel Decorative',serif; margin-bottom:4px; }
+.curr-name{ font-size:13px; color:var(--fg); line-height:1.5; }
+
+/* ── TESTIMONIALS ── */
+.testi-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+}
+.testi-card{
+  background:rgba(18,14,7,.8);
+  border:1px solid rgba(232,197,71,.1);
+  border-radius:20px; padding:28px 24px;
+  position:relative;
+}
+.testi-card::before{
+  content:'"';
+  position:absolute; top:16px; left:20px;
+  font-family:'Cormorant Garamond',serif; font-size:60px;
+  color:rgba(232,197,71,.12); line-height:1;
+}
+.testi-text{ font-size:14px; color:var(--fgd); line-height:1.9; margin-bottom:20px; font-style:italic; }
+.testi-author{ display:flex; gap:12px; align-items:center; }
+.testi-avatar{
+  width:38px; height:38px; border-radius:50%;
+  background:linear-gradient(135deg,var(--gdim),var(--g));
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.testi-name{ font-family:'Cinzel Decorative',serif; font-size:10px; color:var(--g); letter-spacing:1px; }
+.testi-meta{ font-size:11px; color:var(--fgdd); }
+
+/* ── PREMIUM CTA ── */
+.prem-section{
+  background:linear-gradient(135deg,rgba(20,16,8,.95),rgba(10,8,4,.95));
+  border:1px solid rgba(232,197,71,.15);
+  border-radius:28px; padding:56px 32px;
+  text-align:center; max-width:600px; margin:0 auto;
+  position:relative; overflow:hidden;
+}
+.prem-section::before{
+  content:''; position:absolute; top:-100px; left:50%; transform:translateX(-50%);
+  width:400px; height:400px;
+  background:radial-gradient(circle,rgba(232,197,71,.06),transparent 65%);
+  pointer-events:none;
+}
+.prem-price{
+  font-family:'Cinzel Decorative',serif;
+  font-size:48px; color:var(--g);
+  margin:16px 0 4px;
+}
+.prem-price-note{ font-size:12px; color:var(--fgdd); margin-bottom:28px; }
+.prem-features{ list-style:none; text-align:left; margin-bottom:32px; }
+.prem-features li{
+  font-size:14px; color:var(--fgd); padding:8px 0;
+  border-bottom:1px solid rgba(232,197,71,.07);
+  display:flex; gap:10px;
+}
+.prem-features li:last-child{ border-bottom:none; }
+
+/* ── FAQ ── */
+.faq-list{ max-width:620px; margin:0 auto; }
+.faq-item{
+  border-bottom:1px solid rgba(232,197,71,.1);
+  padding:20px 0;
+}
+.faq-q{
+  font-family:'Cinzel Decorative',serif; font-size:11px;
+  color:var(--fg); letter-spacing:1px; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+}
+.faq-q span{ color:var(--g); font-size:16px; transition:.3s; flex-shrink:0; }
+.faq-a{
+  font-size:13px; color:var(--fgd); line-height:1.9;
+  max-height:0; overflow:hidden; transition:.35s ease;
+}
+.faq-item.open .faq-a{ max-height:200px; padding-top:12px; }
+.faq-item.open .faq-q span{ transform:rotate(45deg); }
+
+/* ── FOOTER ── */
+footer{
+  padding:40px 24px; text-align:center;
+  border-top:1px solid rgba(232,197,71,.08);
+}
+.footer-logo{
+  font-family:'Cinzel Decorative',serif; font-size:16px; letter-spacing:3px;
+  background:linear-gradient(135deg,var(--gdim),var(--g));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+}
+.footer-tagline{ font-size:12px; color:var(--fgdd); letter-spacing:2px; margin-bottom:16px; }
+.footer-link{ font-size:12px; color:var(--g); text-decoration:none; margin:0 12px; }
+.footer-copy{ font-size:11px; color:var(--fgdd); margin-top:16px; }
+
+/* ── SCROLL REVEAL ── */
+.reveal{ opacity:0; transform:translateY(30px); transition:.7s ease; }
+.reveal.visible{ opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MindriX🦅</div>
+  <a href="index2_v5.html" class="nav-cta">App खोलें →</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-rings">
+    <div class="hero-ring"></div>
+    <div class="hero-ring"></div>
+    <div class="hero-ring"></div>
+  </div>
+  <div class="hero-badge">🧠 90-Day Psychology Journey</div>
+  <h1 class="hero-title">MindriX🦅</h1>
+  <div class="hero-sub">मन की विद्या — Learn Psychology in Hindi</div>
+  <p class="hero-desc">
+    Psychology को <b>Hindi में</b> समझो — रोज़ 10 मिनट में।<br>
+    <b>90 दिनों में</b> खुद को, दूसरों को, और दुनिया को<br>
+    एक नई नज़र से देखना शुरू करो।
+  </p>
+  <div class="hero-btns">
+    <a href="index2_v5.html" class="btn-primary">🚀 अभी शुरू करें — Free</a>
+    <a href="#features" class="btn-secondary">और जानें ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">90</span>
+      <span class="stat-label">दिन का Course</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Psychology Concepts</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Hindi में</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">Free</span>
+      <span class="stat-label">Core Content</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features">
+  <div class="inner">
+    <div class="sec-label">✦ क्यों MindriX ✦</div>
+    <h2 class="sec-title">हर Feature एक Purpose के साथ</h2>
+    <div class="divider"></div>
+    <div class="features-grid reveal">
+      <div class="feat-card">
+        <span class="feat-icon">🧠</span>
+        <div class="feat-title">Daily Psychology Lessons</div>
+        <div class="feat-desc">हर दिन एक नया psychology concept — simple Hindi में। Cognitive Biases से Dark Psychology तक।</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🎯</span>
+        <div class="feat-title">Gamified Learning</div>
+        <div class="feat-desc">XP Points, Coins, Streak system, और Achievement Badges। सीखना boring नहीं रहेगा।</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🔥</span>
+        <div class="feat-title">Streak System</div>
+        <div class="feat-desc">रोज़ आने की आदत बनाओ। Streak टूटने न दो — यह habit psychology पर based है।</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">☁️</span>
+        <div class="feat-title">Cloud Sync</div>
+        <div class="feat-desc">Progress हर device पर sync। Phone बदलो — data नहीं जाएगा। Firebase powered।</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🪙</span>
+        <div class="feat-title">Refer & Earn</div>
+        <div class="feat-desc">दोस्त को refer करो — दोनों को Coins मिलते हैं। 149 Coins = Premium FREE unlock।</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">📱</span>
+        <div class="feat-title">Install as App</div>
+        <div class="feat-desc">PWA — Phone पर real app जैसे install करो। No Play Store, No Storage waste।</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section id="how">
+  <div class="inner">
+    <div class="sec-label">✦ कैसे काम करता है ✦</div>
+    <h2 class="sec-title">3 Steps में शुरू करो</h2>
+    <div class="divider"></div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Account बनाओ — 30 seconds</div>
+          <div class="step-desc">Google से 1 tap में login करो, या Email से signup करो। कोई OTP नहीं, कोई झंझट नहीं।</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">App Tour लो — Coins पाओ</div>
+          <div class="step-desc">पहली बार 8-step tour complete करो — +20 Coins मिलते हैं। App को explore करो।</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Day 1 शुरू करो</div>
+          <div class="step-desc">रोज़ 10-15 मिनट — एक lesson, एक quiz। 90 दिन बाद तुम अलग इंसान होगे।</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURRICULUM ═══ -->
+<section id="curriculum">
+  <div class="inner">
+    <div class="sec-label">✦ क्या सीखोगे ✦</div>
+    <h2 class="sec-title">90 दिन का Curriculum</h2>
+    <p class="sec-sub">Beginner से Advanced — हर topic carefully curated है।</p>
+    <div class="curr-grid reveal">
+      <div class="curr-card">
+        <span class="curr-emoji">🧠</span>
+        <div class="curr-info">
+          <div class="curr-day">Days 1–10</div>
+          <div class="curr-name">Brain कैसे काम करता है — Neuroscience Basics</div>
+        </div>
+      </div>
+      <div class="curr-card">
+        <span class="curr-emoji">🎭</span>
+        <div class="curr-info">
+          <div class="curr-day">Days 11–20</div>
+          <div class="curr-name">Cognitive Biases — हमारे decisions के illusions</div>
+        </div>
+      </div>
+      <div class="curr-card">
+        <span class="curr-emoji">💬</span>
+        <div class="curr-info">
+          <div class="curr-day">Days 21–30</div>
+          <div class="curr-name">Social Psychology — Log kya sochte hain</div>
+        </div>
+      </div>
+      <div class="curr-card">
+        <span class="curr-emoji">❤️</span>
+        <div class="curr-info">
+          <div class="curr-day">Days 31–40</div>
+          <div class="curr-name">Emotions & Attachment Theory</div>
+        </div>
+      </div>
+      <div class="curr-card">
+        <span class="curr-emoji">💪</span>
+        <div class="curr-info">
+          <div class="curr-day">Days 41–55</div>
+          <div class="curr-name">Habits, Motivation & Behavior Change</div>
+        </div>
+      </div>
+      <div class="curr-card">
+        <span class="curr-emoji">🌟</span>
+        <div class="curr-info">
+          <div class="curr-day">Days 56–90</div>
+          <div class="curr-name">Personality, Leadership & Self-Mastery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="testimonials">
+  <div class="inner">
+    <div class="sec-label">✦ Users क्या कहते हैं ✦</div>
+    <h2 class="sec-title">Real Stories</h2>
+    <div class="divider"></div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <p class="testi-text">MindriX ने मुझे Cognitive Biases समझाए — अब मैं अपने decisions पर पहले सोचता हूँ। Hindi में होने से बहुत आसान लगा।</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧑</div>
+          <div>
+            <div class="testi-name">Rahul M.</div>
+            <div class="testi-meta">Day 34 Complete · 34🔥 Streak</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-text">पहले psychology boring लगती थी। MindriX के बाद रोज़ सुबह app खोलना routine बन गया है। Streak कभी नहीं तोड़ी!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Priya S.</div>
+            <div class="testi-meta">Day 21 Complete · 🏆 Achiever</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-text">Dark Psychology section ने आँखें खोल दीं। Manipulation techniques पहचानना सीखा। यह content India में कहीं नहीं मिलेगा।</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧑‍💼</div>
+          <div>
+            <div class="testi-name">Arjun K.</div>
+            <div class="testi-meta">Premium User · Day 67 Complete</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PREMIUM ═══ -->
+<section id="premium">
+  <div class="inner">
+    <div class="sec-label">✦ Premium Access ✦</div>
+    <h2 class="sec-title">Advanced Level Unlock करो</h2>
+    <div class="divider"></div>
+    <div class="prem-section reveal">
+      <div style="font-size:48px;margin-bottom:8px">👑</div>
+      <div style="font-family:'Cinzel Decorative',serif;font-size:16px;letter-spacing:3px;color:var(--g)">MindriX Premium</div>
+      <div class="prem-price">₹149</div>
+      <div class="prem-price-note">Lifetime Access · One-Time Payment · No Subscription</div>
+      <ul class="prem-features">
+        <li><span>🕯️</span> Dark Psychology Tricks — Advanced Manipulation Defense</li>
+        <li><span>🧬</span> Neuroplasticity Hacks — Brain को rewire करो</li>
+        <li><span>🎯</span> Emotional Intelligence Masterclass</li>
+        <li><span>💼</span> Power Dynamics & Influence Techniques</li>
+        <li><span>🌙</span> Shadow Psychology — Carl Jung's Hidden Self</li>
+        <li><span>🎨</span> 10 Exclusive Premium Themes</li>
+        <li><span>🪙</span> 149 Coins से भी unlock होता है — Refer करो Free पाओ</li>
+      </ul>
+      <a href="index2_v5.html" class="btn-primary" style="display:inline-block">👑 Premium Unlock करें — ₹149</a>
+      <div style="font-size:11px;color:var(--fgdd);margin-top:12px">या 149 Coins collect करके Free unlock करो 🪙</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div class="inner">
+    <div class="sec-label">✦ सवाल-जवाब ✦</div>
+    <h2 class="sec-title">अक्सर पूछे जाते हैं</h2>
+    <div class="divider"></div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">क्या यह बिल्कुल Free है? <span>+</span></div>
+        <div class="faq-a">हाँ! 90 दिन का पूरा core course बिल्कुल free है। Premium (₹149) में extra advanced topics हैं — लेकिन 149 Coins से free unlock भी हो जाता है।</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">रोज़ कितना time चाहिए? <span>+</span></div>
+        <div class="faq-a">सिर्फ 10-15 मिनट। एक lesson पढ़ो, quiz दो — बस। बहुत busy days में भी आसानी से हो जाता है।</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Refer System कैसे काम करता है? <span>+</span></div>
+        <div class="faq-a">App के Settings → Refer & Earn में अपना unique code मिलेगा। दोस्त वो code use करे — उसे +5 Coins, तुम्हें +10 Coins। 149 Coins collect करो — Premium FREE!</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Data safe है? <span>+</span></div>
+        <div class="faq-a">बिल्कुल। Firebase (Google) पर encrypted data। सिर्फ तुम्हारे account से accessible।</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Phone बदला तो data जाएगा? <span>+</span></div>
+        <div class="faq-a">नहीं! Google login use करो — नए phone पर same Google account से login करो। सब progress वापस आ जाएगी।</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section style="padding:60px 24px;text-align:center">
+  <div class="sec-label">✦ अभी शुरू करो ✦</div>
+  <h2 class="sec-title" style="margin-bottom:12px">आज का पहला कदम</h2>
+  <p style="font-size:15px;color:var(--fgdd);margin-bottom:32px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.8">
+    हज़ारों लोग आज MindriX के साथ सीख रहे हैं।<br>तुम्हारा Day 1 कब शुरू होगा?
+  </p>
+  <a href="index2_v5.html" class="btn-primary" style="font-size:11px;padding:18px 36px">
+    🚀 अभी शुरू करें — बिल्कुल Free
+  </a>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">MindriX🦅</div>
+  <div class="footer-tagline">मन की विद्या • ज्ञान कभी बेकार नहीं होता</div>
+  <div>
+    <a href="index2_v5.html" class="footer-link">App खोलें</a>
+    <a href="#features" class="footer-link">Features</a>
+    <a href="#premium" class="footer-link">Premium</a>
+    <a href="#faq" class="footer-link">FAQ</a>
+  </div>
+  <div class="footer-copy">© 2025 MindriX · Sangam Sir @sangamsirofficial · Made with 🧠 in India</div>
+</footer>
+
+<script>
+// FAQ toggle
+function toggleFaq(el){
+  el.closest('.faq-item').classList.toggle('open');
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:.1 });
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
