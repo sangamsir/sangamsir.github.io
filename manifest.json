@@ -2,7 +2,7 @@
   "name": "MindriX – मन की विद्या",
   "short_name": "MindriX",
   "description": "90-Day Psychology Self-Mastery App in Hindi",
-  "start_url": "./index2_v5.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#080600",
   "theme_color": "#0a0a0a",
