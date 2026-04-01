@@ -1,8 +1,8 @@
 // MindriX PWA Service Worker
-const CACHE = 'mindrix-v1';
+const CACHE = 'mindrix-v1.5.7.5';
 const ASSETS = [
   './',
-  './index2_v5.html',
+  './index.html',
   './manifest.json'
 ];
 
